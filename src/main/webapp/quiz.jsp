@@ -12,5 +12,15 @@
         <p>Number of Questions: <%= request.getAttribute("questionsTotal") %></p>
         <p>Questions per Page: <%= request.getAttribute("questionsPerPage") %></p>
         <p>Total Pages: <%= request.getAttribute("totalPages") %></p>
+
+        <%@ page import="java.util.List" %>
+        <%@ page import="models.Question" %>
+        <%
+            List<Question> questions = (List<Question>) request.getAttribute("questions");
+            for (Question item : questions) {
+                out.println("<p>" + Integer.toString(item.GetId()) + ". " + item.GetText() + "</p>");
+            }
+        %>
+        
     </body>
 </html>
