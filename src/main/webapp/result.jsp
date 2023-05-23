@@ -1,3 +1,8 @@
+<%
+    if (session.getAttribute("id") == null) {
+        response.sendRedirect("/quiz/login");
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -8,12 +13,9 @@
         <title>Quiz</title>
     </head>
     <body>
-
-        <h1>Result</h1>
+        <h2>Results</h2>
         <p>Score: <%= session.getAttribute("score") %></p>
-        <p>Number of Questions: <%= session.getAttribute("questionsTotal") %></p>
-        <p>Questions per Page: <%= session.getAttribute("questionsPerPage") %></p>
+        <p>Highscore: <%= session.getAttribute("highscore") %></p>
         <a class="btn btn-primary" href="/quiz" role="button">Home</a>
-        
     </body>
 </html>

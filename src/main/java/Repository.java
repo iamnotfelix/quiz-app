@@ -8,8 +8,7 @@ import java.util.List;
 
 import models.Answer;
 import models.Question;
-
-// import models.Question;
+import models.User;
 
 public class Repository implements IRepository{
 
@@ -77,6 +76,37 @@ public class Repository implements IRepository{
         }
 
         return answers;
+    }
+
+    @Override
+    public User Login(String name, String pass) {
+        String sql = "SELECT * FROM users WHERE username = ? LIMIT 1";
+        User user = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, name);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String pwd = resultSet.getString("password");
+                int highscore = resultSet.getInt("highscore");
+                if (!pwd.equals(pass))
+                {
+                    return user;
+                }
+                user = new User(id, name, pass, highscore);
+            }
+        } catch (ClassNotFoundException e) {
+            throw new IllegalStateException("Cannot find the driver in the classpath!", e);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
     }
     
 }

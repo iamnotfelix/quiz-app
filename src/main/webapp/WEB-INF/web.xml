@@ -19,6 +19,16 @@
       <servlet-class>ResultServlet</servlet-class>
   </servlet>
   
+  <servlet>
+      <servlet-name>LoginServlet</servlet-name>
+      <servlet-class>LoginServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+      <servlet-name>LogoutServlet</servlet-name>
+      <servlet-class>LogoutServlet</servlet-class>
+  </servlet>
+  
   <servlet-mapping>
       <servlet-name>QuizServlet</servlet-name>
       <url-pattern>/quiz</url-pattern>
@@ -27,6 +37,16 @@
   <servlet-mapping>
       <servlet-name>ResultServlet</servlet-name>
       <url-pattern>/answer</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+      <servlet-name>LoginServlet</servlet-name>
+      <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+      <servlet-name>LogoutServlet</servlet-name>
+      <url-pattern>/logout</url-pattern>
   </servlet-mapping>
     
 </web-app>

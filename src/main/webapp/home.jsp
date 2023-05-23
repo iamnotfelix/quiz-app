@@ -1,3 +1,8 @@
+<%
+    if (session.getAttribute("id") == null) {
+        response.sendRedirect("/quiz/login");
+    }
+%>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -10,6 +15,7 @@
         <form action="quiz" method="post" autocomplete="off">
             <div class="container my-5">
                 <h2>Quiz configuration</h2>
+                <h3>Welcome <%= session.getAttribute("username") %> - configure your quiz</h3>
                 <div class="form-group mb-4">
                     <label for="questionsTotal">Number of Questions</label>
                     <input type="number" class="form-control" id="questionsTotal" name="questionsTotal" placeholder="#" required min="1" value="1">
@@ -26,5 +32,10 @@
                 <button type="submit" class="btn btn-primary">Start quiz</button>
             </div>
         </form>
+        <div class="container my-1">
+            <form action="logout" method="post">
+                <button type="submit" class="btn btn-primary">Log out</button>
+            </form>
+        </div>
     </body>
 </html>

@@ -1,3 +1,8 @@
+<%
+    if (session.getAttribute("id") == null) {
+        response.sendRedirect("/quiz/login");
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>
