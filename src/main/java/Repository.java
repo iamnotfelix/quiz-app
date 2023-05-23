@@ -108,5 +108,25 @@ public class Repository implements IRepository{
 
         return user;
     }
+
+    @Override
+    public void SetHighscore(int userId, int highscore) {
+        String sql = "UPDATE users SET highscore = ? WHERE id = ?";
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println(userId);
+            System.out.println(highscore);
+
+            Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, highscore);
+            statement.setInt(2, userId);
+            statement.executeUpdate();
+        } catch (ClassNotFoundException e) {
+            throw new IllegalStateException("Cannot find the driver in the classpath!", e);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     
 }

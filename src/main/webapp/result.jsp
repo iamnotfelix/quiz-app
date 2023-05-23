@@ -13,9 +13,12 @@
         <title>Quiz</title>
     </head>
     <body>
-        <h2>Results</h2>
-        <p>Score: <%= session.getAttribute("score") %></p>
-        <p>Highscore: <%= session.getAttribute("highscore") %></p>
-        <a class="btn btn-primary" href="/quiz" role="button">Home</a>
+        <div class="container my-5">
+            <h2>Results</h2>
+            <p>Score: <%= session.getAttribute("score") %></p>
+            <p>Wrong answers: <%= request.getAttribute("wrong") %></p>
+            <p>Highscore: <%= session.getAttribute("highscore") %></p>
+            <a class="btn btn-primary" href="/quiz" role="button">Home</a>
+        </div>
     </body>
 </html>

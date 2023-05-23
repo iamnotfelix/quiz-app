@@ -17,6 +17,7 @@ public class ResultServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        IRepository repository = new Repository();
 
         int questionsTotal = (int) session.getAttribute("questionsTotal");
         int questionsPerPage = (int) session.getAttribute("questionsPerPage");
@@ -35,6 +36,14 @@ public class ResultServlet extends HttpServlet {
         int take = questionsPerPage;
         if (current >= totalPages) 
         {
+            int highscore = (int) session.getAttribute("highscore");
+            int id = (int) session.getAttribute("id");
+            if (highscore < score) 
+            {
+                repository.SetHighscore(id, score);
+                session.setAttribute("highscore", score);
+            }
+            request.setAttribute("wrong", questionsTotal - score);
             request.getRequestDispatcher("result.jsp").forward(request, response);
         }
         if (current + 1 == totalPages)
@@ -45,7 +54,6 @@ public class ResultServlet extends HttpServlet {
         session.setAttribute("current", current + 1);
         session.setAttribute("questionsPerPage", take);
 
-        IRepository repository = new Repository();
         List<Question> questions = repository.GetQuestions(current + 1, questionsPerPage, take);
 
         request.setAttribute("questions", questions);

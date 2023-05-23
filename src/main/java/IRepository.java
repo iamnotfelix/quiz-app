@@ -8,4 +8,5 @@ public interface IRepository {
     List<Question> GetQuestions(int current, int questionsPerPage, int take);
     List<Answer> GetAnswers(int questionId);
     User Login(String username, String password);
+    void SetHighscore(int userId, int highscore);
 }
