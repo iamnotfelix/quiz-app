@@ -10,7 +10,9 @@
     <body>
 
         <h1>Result</h1>
-
+        <p>Score: <%= session.getAttribute("score") %></p>
+        <p>Number of Questions: <%= session.getAttribute("questionsTotal") %></p>
+        <p>Questions per Page: <%= session.getAttribute("questionsPerPage") %></p>
         <a class="btn btn-primary" href="/quiz" role="button">Home</a>
         
     </body>

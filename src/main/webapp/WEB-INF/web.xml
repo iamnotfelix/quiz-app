@@ -14,9 +14,19 @@
       <servlet-class>QuizServlet</servlet-class>
   </servlet>
   
+  <servlet>
+      <servlet-name>ResultServlet</servlet-name>
+      <servlet-class>ResultServlet</servlet-class>
+  </servlet>
+  
   <servlet-mapping>
       <servlet-name>QuizServlet</servlet-name>
       <url-pattern>/quiz</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+      <servlet-name>ResultServlet</servlet-name>
+      <url-pattern>/answer</url-pattern>
   </servlet-mapping>
     
 </web-app>

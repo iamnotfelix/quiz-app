@@ -19,7 +19,7 @@ public class Repository implements IRepository{
     private String password = "rootroot";
 
     @Override
-    public List<Question> GetQuestions(int current, int questionsPerPage) {
+    public List<Question> GetQuestions(int current, int questionsPerPage, int take) {
         int skip = (current - 1) * questionsPerPage;
         
         String sql = "SELECT * FROM questions ORDER BY id LIMIT ? OFFSET ?";
@@ -30,7 +30,7 @@ public class Repository implements IRepository{
 
             Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, questionsPerPage);
+            statement.setInt(1, take);
             statement.setInt(2, skip);
             ResultSet resultSet = statement.executeQuery();
 

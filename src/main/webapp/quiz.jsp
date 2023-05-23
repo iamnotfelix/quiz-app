@@ -8,26 +8,39 @@
         <title>Quiz</title>
     </head>
     <body>
+        <div class="container my-5">
+            <h2>Quiz</h2>
+            <p>Number of Questions: <%= session.getAttribute("questionsTotal") %></p>
+            <p>Questions per Page: <%= session.getAttribute("questionsPerPage") %></p>
+            <p>Total Pages: <%= session.getAttribute("totalPages") %></p>
 
-        <h1>Quiz</h1>
-        <p>Number of Questions: <%= session.getAttribute("questionsTotal") %></p>
-        <p>Questions per Page: <%= session.getAttribute("questionsPerPage") %></p>
-        <p>Total Pages: <%= session.getAttribute("totalPages") %></p>
-
-        <%@ page import="java.util.List" %>
-        <%@ page import="models.Question" %>
-        <%@ page import="models.Answer" %>
-        <%
-            List<Question> questions = (List<Question>) request.getAttribute("questions");
-            for (Question question : questions) {
-                out.println("<p>" + Integer.toString(question.GetId()) + ". " + question.GetText() + "</p>");
-                for (Answer answer : question.GetAnswers()) {
-                    out.println("<p>" + answer.GetText() + "</p>");
-                }
-            }
-        %>
-
-        <a class="btn btn-primary" href="quiz" role="button">Next</a>
-        
+            <form action='answer' method='post'>
+                <%@ page import="java.util.List" %>
+                <%@ page import="models.Question" %>
+                <%@ page import="models.Answer" %>
+                <%
+                    List<Question> questions = (List<Question>) request.getAttribute("questions");
+                    int i = 1;
+                    for (Question question : questions) {
+                        out.println("<div class='container mb-2'>");
+                        out.println("<p>" + Integer.toString(question.GetId()) + ". " + question.GetText() + "</p>");
+                        for (Answer answer : question.GetAnswers()) {
+                            out.println(
+                                "<div class='form-check'>" + 
+                                    "<input class='form-check-input' type='radio' name='question" + Integer.toString(i) + "' id='question" + Integer.toString(i) + "' value='" + Boolean.toString(answer.GetIsCorrect()) + "'>" +
+                                    "<label class='form-check-label' for='question" + Integer.toString(i) + "'>" +
+                                    answer.GetText() +
+                                    "</label>" +
+                                "</div>"
+                            );
+                        }
+                        ++i;
+                        out.println("</div>");
+                    }
+                %>
+                <button type="submit" class="btn btn-primary">Next</button>
+                <!-- <a class="btn btn-primary" href="quiz" role="button">Next</a> -->
+            </form>
+        </div>
     </body>
 </html>
