@@ -8,19 +8,26 @@
         <title>Quiz</title>
     </head>
     <body>
+
         <h1>Quiz</h1>
-        <p>Number of Questions: <%= request.getAttribute("questionsTotal") %></p>
-        <p>Questions per Page: <%= request.getAttribute("questionsPerPage") %></p>
-        <p>Total Pages: <%= request.getAttribute("totalPages") %></p>
+        <p>Number of Questions: <%= session.getAttribute("questionsTotal") %></p>
+        <p>Questions per Page: <%= session.getAttribute("questionsPerPage") %></p>
+        <p>Total Pages: <%= session.getAttribute("totalPages") %></p>
 
         <%@ page import="java.util.List" %>
         <%@ page import="models.Question" %>
+        <%@ page import="models.Answer" %>
         <%
             List<Question> questions = (List<Question>) request.getAttribute("questions");
-            for (Question item : questions) {
-                out.println("<p>" + Integer.toString(item.GetId()) + ". " + item.GetText() + "</p>");
+            for (Question question : questions) {
+                out.println("<p>" + Integer.toString(question.GetId()) + ". " + question.GetText() + "</p>");
+                for (Answer answer : question.GetAnswers()) {
+                    out.println("<p>" + answer.GetText() + "</p>");
+                }
             }
         %>
+
+        <a class="btn btn-primary" href="quiz" role="button">Next</a>
         
     </body>
 </html>
