@@ -14,20 +14,27 @@ import models.Question;
 @WebServlet("/quiz")
 public class QuizServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    // private IRepository repository = null;
-
-    // @Override
-    // public void init() throws ServletException {
-    //     super.init();
-    //     this.repository = new Repository();
-    // }
     
+    boolean validateConfiguration(int questionsTotal, int questionsPerPage)
+    {
+        if (questionsTotal > 20 || questionsTotal < 1) { return false; }
+        if (questionsPerPage > questionsTotal || questionsPerPage < 1) { return false; }
+        return true;
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int questionsTotal = Integer.parseInt(request.getParameter("questionsTotal"));
         int questionsPerPage = Integer.parseInt(request.getParameter("questionsPerPage"));
         int totalPages = (int) Math.ceil((double) questionsTotal / questionsPerPage);
         int current = 1;
+
+        if (!this.validateConfiguration(questionsTotal, questionsPerPage))
+        {
+            request.setAttribute("error", "Validation error.");
+            request.getRequestDispatcher("home.jsp").forward(request, response);
+            return;
+        }
 
         HttpSession session = request.getSession();
         session.setAttribute("questionsTotal", questionsTotal);
@@ -53,7 +60,7 @@ public class QuizServlet extends HttpServlet {
         int questionsPerPage = (int) session.getAttribute("questionsPerPage");
         int totalPages = (int) session.getAttribute("totalPages");
         int current = (int) session.getAttribute("current");
-        if (current == totalPages) 
+        if (current >= totalPages) 
         {
             // TODO: redirect to result page
             request.getRequestDispatcher("result.jsp").forward(request, response);

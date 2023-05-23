@@ -18,6 +18,11 @@
                     <label for="questionsPerPage">Questions per Page</label>
                     <input type="number" class="form-control" id="questionsPerPage" name="questionsPerPage" placeholder="#" required min="1" value="1">
                 </div>
+                <%
+                    if (request.getAttribute("error") != null) {
+                        out.println("<div class='alert alert-danger' role='alert'>" + request.getAttribute("error") + "</div>");
+                    }
+                %>
                 <button type="submit" class="btn btn-primary">Start quiz</button>
             </div>
         </form>
